@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, Mail, User, Lock } from "lucide-react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
@@ -57,7 +56,6 @@ const Register = () => {
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-lime-100/50 flex items-center justify-center p-4">
         <form
           onSubmit={handleRegister}
@@ -209,7 +207,6 @@ const Register = () => {
           </p>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

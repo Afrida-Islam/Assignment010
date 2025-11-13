@@ -146,7 +146,7 @@ export const ModelCard = ({ model }) => {
       {/* View Button (using Link) */}
       <div className="p-5 pt-0">
         <Link
-          to={`/model-details/${_id}`}
+          to={`/model-details`}
           className="flex justify-center items-center w-full py-2 px-4 rounded-lg text-white font-semibold 
                                bg-orange-600 hover:bg-orange-700 transition-colors duration-300 shadow-md 
                                shadow-blue-500/50"

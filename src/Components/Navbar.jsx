@@ -108,7 +108,7 @@ const Navbar = () => {
           )}
           {!currentUser && (
             <Link
-              to="/courses"
+              to=""
               onClick={() => handleLinkClick()}
               className="hover:text-orange-600 transition-colors cursor-pointer"
             >
@@ -141,7 +141,7 @@ const Navbar = () => {
                 <img
                   src={
                     currentUser?.photoURL ||
-                    "https://i.ibb.co/kg4C8QXM/download.jpg"
+                    "https://i.ibb.co.com/QjMhM16S/download-10.jpg"
                   }
                   alt="Avatar"
                   className="w-10 h-10 rounded-full border-2 border-orange-500 object-cover"

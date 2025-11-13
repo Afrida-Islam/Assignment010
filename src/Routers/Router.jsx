@@ -4,17 +4,22 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Register from "../Pages/Register";
 import LogIn from "../Pages/Login";
-// import Stepltem from "../Components/StepItem";
+import AllModels from "../Components/AllModels";
+import CourseDetails from "../Pages/CourseDetails";
+import MainLayout from "./layout/MainLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
+    Component: MainLayout,
     children: [
       {
-        path: "/profilepage",
+        path: "/",
+        Component: Home,
+      },
+      {
+        path: "/profiledata",
         Component: Profile,
       },
-
       {
         path: "/Registerdata",
         Component: Register,
@@ -23,11 +28,14 @@ export const router = createBrowserRouter([
         path: "/logindata",
         Component: LogIn,
       },
-      // {
-      //   path: "/courses",
-      //   Component: Stepltem,
-      //   loader: () => fetch("http://localhost:5173/courses"),
-      // },
+      {
+        path: "/courses",
+        Component: AllModels,
+      },
+      {
+        path: "/model-details",
+        Component: CourseDetails,
+      },
     ],
   },
 ]);

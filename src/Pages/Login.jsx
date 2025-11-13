@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+// import Navbar from "../Components/Navbar";
+// import Footer from "../Components/Footer";
 
 import { Link } from "react-router";
 
@@ -59,7 +59,6 @@ const Login = () => {
   // const handleGoogleSignIn = () => {};
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-lime-100/50 flex items-center justify-center p-4">
         <form
           onSubmit={handleSubmit}
@@ -170,7 +169,6 @@ const Login = () => {
           </p>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

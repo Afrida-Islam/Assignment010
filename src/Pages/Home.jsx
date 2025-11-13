@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../Components/Navbar";
-import { Outlet } from "react-router";
-import Footer from "../Components/Footer";
+// import Navbar from "../Components/Navbar";
+// import { Outlet } from "react-router";
+// import Footer from "../Components/Footer";
 import Banner from "../Components/Banner";
 
 import Stepltem from "../Components/StepItem";
@@ -13,7 +13,7 @@ import AllModels from "../Components/AllModels";
 const Home = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <Banner></Banner>
       <AllModels></AllModels>
@@ -23,8 +23,8 @@ const Home = () => {
       <FeaturePart></FeaturePart>
       <FAQSection></FAQSection>
       <TestimonialCard></TestimonialCard>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      {/* <Outlet></Outlet>
+      <Footer></Footer> */}
     </div>
   );
 };

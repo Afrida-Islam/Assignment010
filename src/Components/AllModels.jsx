@@ -129,7 +129,7 @@ const AllModels = () => {
           No models found for this query.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 m-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-10 m-4">
           {models.map((model) => (
             <ModelCard key={model._id} model={model} />
           ))}
