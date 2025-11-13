@@ -73,7 +73,6 @@ const Navbar = () => {
       setIsOpen(false);
     }
     setProfileOpen(false);
-    // Removed setDashboardOpen(false);
   };
 
   return (
@@ -106,7 +105,6 @@ const Navbar = () => {
             >
               Courses
             </Link>
-            // <a  className="hover:text-orange-600 transition-colors cursor-pointer">dashboard</a>
           )}
           {!currentUser && (
             <Link
@@ -118,7 +116,6 @@ const Navbar = () => {
             </Link>
           )}
 
-          {/* If LOGGED IN, show all Dashboard links individually */}
           {currentUser &&
             dashboardLinks.map((link) => (
               <Link
@@ -132,7 +129,6 @@ const Navbar = () => {
               </Link>
             ))}
         </nav>
-        {/* --------------------------- */}
 
         <div className="flex items-center space-x-4">
           {currentUser ? (

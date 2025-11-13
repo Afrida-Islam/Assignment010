@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Register from "../Pages/Register";
 import LogIn from "../Pages/Login";
+// import Stepltem from "../Components/StepItem";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,11 @@ export const router = createBrowserRouter([
         path: "/logindata",
         Component: LogIn,
       },
+      // {
+      //   path: "/courses",
+      //   Component: Stepltem,
+      //   loader: () => fetch("http://localhost:5173/courses"),
+      // },
     ],
   },
 ]);

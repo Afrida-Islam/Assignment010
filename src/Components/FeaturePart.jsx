@@ -36,17 +36,12 @@ const FeaturePart = () => {
         <div className="absolute bottom-0 right-0 w-48 h-48 bg-teal-200 dark:bg-teal-700 rounded-full mix-blend-multiply filter blur-xl opacity-30 transform translate-x-1/2 translate-y-1/2"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Optional Section Title */}
-          {/*
-        <div className="lg:text-center mb-12">
-          <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Our Advantages</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Why Choose Us?
-          </p>
-        </div>
-        */}
+          <div className="lg:text-center mb-12">
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Why Choose Us?
+            </p>
+          </div>
 
-          {/* Features Grid */}
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
               <div

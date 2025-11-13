@@ -1,6 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+//   const data = useLoaderData();
+//   // const [models, setModels] = useState(data)
+//   // const [loading, setLoading] = useState(false)
+// console.log(data)
+
+
+
 const PlayIcon = (props) => (
   <svg
     {...props}
