@@ -10,6 +10,7 @@ import FeaturePart from "../Components/FeaturePart";
 import FAQSection from "../Components/FAQSection";
 import TestimonialCard from "../Components/TestimonialCard";
 import AllModels from "../Components/AllModels";
+
 const Home = () => {
   return (
     <div>
@@ -17,7 +18,7 @@ const Home = () => {
 
       <Banner></Banner>
       <AllModels></AllModels>
-      {/* <CourseCategories></CourseCategories> */}
+
       <Stepltem></Stepltem>
 
       <FeaturePart></FeaturePart>

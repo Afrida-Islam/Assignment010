@@ -1,22 +1,24 @@
-import { Link } from "react-router-dom"; // Changed to 'react-router-dom' for general use
+import { Link } from "react-router-dom";
 
-export const ModelCard = ({ model }) => {
-  // Destructure all necessary fields, including the new ones
+export const CourseCard = ({ model }) => {
+  // Destructure and map JSON keys to component variables
   const {
-    name,
-    thumbnail,
+    title,
+    image_link,
     category,
-    _id,
-    duration, // New field for time/duration (e.g., "1 year")
-    students, // New field for students count (e.g., 1)
-    rating, // New field for rating (e.g., 5.0)
-    ratingCount, // New field for count (e.g., 1)
-    price, // New field for price (e.g., 120)
-    originalPrice, // Optional field for strikethrough price
+    _id, // This is essential for the link destination!
+    duration_weeks,
+    students_enrolled,
+    rating,
+    price_usd,
   } = model;
 
-  // Helper to render star ratings based on a number (assuming a 5-star system)
+  // Function to determine the display duration
+  const displayDuration = duration_weeks ? `${duration_weeks} weeks` : "N/A";
+
+  // Function to render stars (omitted for brevity, assume it's the same)
   const renderStars = (score) => {
+    // ... same renderStars function as before
     const fullStars = Math.floor(score);
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -44,33 +46,33 @@ export const ModelCard = ({ model }) => {
 
   return (
     <div className="card bg-white rounded-lg shadow-xl overflow-hidden max-w-sm">
-      {/* --- Image/Thumbnail Section --- */}
+      {/* Image/Thumbnail Section */}
       <figure className="h-48 overflow-hidden">
         <img
-          src={thumbnail}
-          alt={name}
-          className="w-full h-full object-cover" // Removed hover effects to match static image
+          src={image_link}
+          alt={title}
+          className="w-full h-full object-cover"
         />
       </figure>
 
-      {/* --- Card Body --- */}
-      <div className="card-body p-4">
-        {/* Category (Videography) */}
-        <p className="text-sm text-pink-600 font-medium mb-1">
+      {/* Card Body */}
+      <div className="card-body p-4 flex flex-col">
+        {" "}
+        {/* Added flex-col to manage spacing */}
+        {/* Category (Data Science) */}
+        <p className="text-sm text-gray-500 font-medium mb-1">
           {category || "Category"}
         </p>
-
-        {/* Title (Live Event Streaming) */}
-        <h2 className="text-xl font-bold text-gray-800 leading-tight mb-2">
-          {name}
+        {/* Title (Machine Learning with Python) */}
+        <h2 className="text-xl font-bold text-gray-800 leading-tight mb-3">
+          {title}
         </h2>
-
         {/* Duration and Students Row */}
-        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
           {/* Duration */}
-          {duration && (
+          {duration_weeks && (
             <div className="flex items-center gap-1">
-              <span className="text-yellow-600">
+              <span className="text-orange-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4"
@@ -84,14 +86,16 @@ export const ModelCard = ({ model }) => {
                   />
                 </svg>
               </span>
-              <span className="font-semibold text-gray-700">{duration}</span>
+              <span className="font-medium text-gray-700">
+                {displayDuration}
+              </span>
             </div>
           )}
 
           {/* Students */}
-          {students !== undefined && (
+          {students_enrolled !== undefined && (
             <div className="flex items-center gap-1">
-              <span className="text-yellow-600">
+              <span className="text-orange-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4"
@@ -101,38 +105,39 @@ export const ModelCard = ({ model }) => {
                   <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
                 </svg>
               </span>
-              <span className="font-semibold text-gray-700">
-                {students} Students
+              <span className="font-medium text-gray-700">
+                {students_enrolled.toLocaleString()} Students
               </span>
             </div>
           )}
         </div>
-
-        {/* Price and Rating Row (Card Actions area) */}
-        <div className="flex justify-between items-center pt-2">
+        {/* Price and Rating Row (Bottom) */}
+        <div className="flex justify-between items-center pb-3">
+          {" "}
+          {/* Moved border to the button section below */}
           {/* Rating */}
           <div className="flex items-center gap-2">
             <div className="flex">{renderStars(rating)}</div>
             <span className="text-sm font-semibold text-gray-800">
-              {rating && rating.toFixed(1)} ({ratingCount || 0})
+              {rating ? rating.toFixed(1) : "N/A"}
             </span>
           </div>
-
-          {/* Price */}
           <div className="flex items-baseline gap-1">
             <span className="text-xl font-bold text-gray-800">
-              ${price || "N/A"}
+              ${price_usd ? price_usd.toFixed(2) : "N/A"}
             </span>
-            {originalPrice && (
-              <span className="text-sm text-gray-400 line-through">
-                ${originalPrice}
-              </span>
-            )}
           </div>
         </div>
-
-        {/* Removed the 'View' button link to match the clean design of the example card */}
-        {/* If you want to keep the link, wrap the entire card or just the image/title */}
+        <div className="border-t border-gray-200 pt-3 mt-1">
+          {_id && (
+            <Link
+              to={`/coursesdatails${_id}`}
+              className="w-full inline-block text-center py-2 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150"
+            >
+              View Details
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

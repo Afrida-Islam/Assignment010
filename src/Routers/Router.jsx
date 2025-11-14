@@ -35,9 +35,9 @@ export const router = createBrowserRouter([
         loader: () => fetch("http://localhost:3000/models"),
       },
       {
-        path: "/coursesdatails/:id",
+        path: "/coursesdatails",
         Component: CourseDetails,
-        loader: () => fetch("http://localhost:3000/data"),
+        // loader: () => fetch("http://localhost:3000/data"),
       },
       {
         path: "/dashboard/add-course",
