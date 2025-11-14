@@ -7,6 +7,7 @@ import LogIn from "../Pages/Login";
 import AllModels from "../Components/AllModels";
 import CourseDetails from "../Pages/CourseDetails";
 import MainLayout from "./layout/MainLayout";
+import AddCourse from "../Pages/AddCourse";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -31,10 +32,16 @@ export const router = createBrowserRouter([
       {
         path: "/courses",
         Component: AllModels,
+        loader: () => fetch("http://localhost:3000/models"),
       },
       {
-        path: "/model-details",
+        path: "/coursesdatails/:id",
         Component: CourseDetails,
+        loader: () => fetch("http://localhost:3000/data"),
+      },
+      {
+        path: "/dashboard/add-course",
+        element: AddCourse,
       },
     ],
   },

@@ -22,13 +22,11 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
-  // Removed isDashboardOpen state and dashboardRef as we are now showing all links directly
+
   const profileRef = useRef(null);
 
-  // Effect to handle clicks outside the profile dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check for Profile Dropdown
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileOpen(false);
       }
@@ -43,10 +41,9 @@ const Navbar = () => {
     try {
       await logout();
       setProfileOpen(false);
-      navigate("/logindata"); // Redirect to login page after logout
+      navigate("/logindata");
     } catch (error) {
       console.error("Logout failed:", error);
-      // Optionally show a user-friendly error message
     }
   };
 
@@ -190,7 +187,6 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden p-2 text-orange-700"
             onClick={() => setIsOpen(!isOpen)}
@@ -201,7 +197,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* --- MOBILE MENU --- */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-xl pb-4 transition-all duration-300">
           <div className="flex flex-col space-y-2 px-4 pt-2">

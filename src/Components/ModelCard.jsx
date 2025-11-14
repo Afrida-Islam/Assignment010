@@ -1,158 +1,138 @@
-import React from "react";
-// Assuming Link is correctly imported from react-router in your full environment
-import { Link } from "react-router";
-
-const StarIcon = ({ filled }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill={filled ? "#f59e0b" : "none"}
-    stroke={filled ? "#f59e0b" : "#f59e0b"}
-    className="w-4 h-4 transition-colors duration-100"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-  </svg>
-);
-
-const ClockIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4 mr-1.5"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-
-const HatIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4 mr-1.5"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 3L2 8v13h20V8L12 3z" />
-    <path d="M12 3v5" />
-    <path d="M22 11l-5 3" />
-    <path d="M2 11l5 3" />
-  </svg>
-);
+import { Link } from "react-router-dom"; // Changed to 'react-router-dom' for general use
 
 export const ModelCard = ({ model }) => {
+  // Destructure all necessary fields, including the new ones
   const {
     name,
     thumbnail,
     category,
-    description,
     _id,
-    created_by,
-
-    duration = "N/A",
-    students = "0 Students",
-    rating = 0.0,
-    reviewCount = 0,
-    price = 0,
-    originalPrice = 0,
+    duration, // New field for time/duration (e.g., "1 year")
+    students, // New field for students count (e.g., 1)
+    rating, // New field for rating (e.g., 5.0)
+    ratingCount, // New field for count (e.g., 1)
+    price, // New field for price (e.g., 120)
+    originalPrice, // Optional field for strikethrough price
   } = model;
 
+  // Helper to render star ratings based on a number (assuming a 5-star system)
   const renderStars = (score) => {
+    const fullStars = Math.floor(score);
     const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<StarIcon key={i} filled={i <= Math.round(score)} />);
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <svg
+          key={i}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill={i < fullStars ? "currentColor" : "none"}
+          stroke={i < fullStars ? "none" : "currentColor"}
+          className={`w-4 h-4 transition-colors ${
+            i < fullStars ? "text-yellow-500" : "text-gray-300"
+          }`}
+        >
+          <path
+            fillRule="evenodd"
+            d="M10.788 3.238l2.427 4.887 5.378.78.006.002c.489.07.697.63.354.98l-3.896 3.793.92 5.358c.08.468-.363.824-.77.633L12 18.528l-4.81 2.536c-.406.191-.85-.165-.77-.633l.92-5.358-3.896-3.793c-.343-.35-.135-.91.354-.98l5.378-.78.006-.002 2.427-4.887z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
     }
     return stars;
   };
 
   return (
-    <div
-      className="w-100 max-w-sm bg-white rounded-xl shadow-lg 
-                       hover:shadow-2xl hover:scale-[1.02] transform transition-all duration-300 
-                       overflow-hidden font-inter border border-gray-100"
-    >
+    <div className="card bg-white rounded-lg shadow-xl overflow-hidden max-w-sm">
+      {/* --- Image/Thumbnail Section --- */}
       <figure className="h-48 overflow-hidden">
         <img
           src={thumbnail}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = `https://placehold.co/320x192/94a3b8/ffffff?text=Image+Not+Found`;
-            e.target.className = "w-full h-full object-contain bg-gray-200 p-4";
-          }}
+          className="w-full h-full object-cover" // Removed hover effects to match static image
         />
       </figure>
 
-      <div className="p-5">
-        <div className="flex justify-between items-center mb-1">
-          <div className="text-xs font-medium text-blue-600 uppercase tracking-wider">
-            {category}
-          </div>
+      {/* --- Card Body --- */}
+      <div className="card-body p-4">
+        {/* Category (Videography) */}
+        <p className="text-sm text-pink-600 font-medium mb-1">
+          {category || "Category"}
+        </p>
 
-          <div className="text-xs text-gray-500 italic">by {created_by}</div>
-        </div>
-
-        <h2 className="text-gray-900 text-xl font-extrabold leading-snug mb-3">
+        {/* Title (Live Event Streaming) */}
+        <h2 className="text-xl font-bold text-gray-800 leading-tight mb-2">
           {name}
         </h2>
 
-        <p className="line-clamp-2 text-sm text-gray-600 mb-3">
-          {description || "No description provided."}
-        </p>
+        {/* Duration and Students Row */}
+        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+          {/* Duration */}
+          {duration && (
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586V6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span className="font-semibold text-gray-700">{duration}</span>
+            </div>
+          )}
 
-        <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-          <span className="flex items-center">
-            <ClockIcon />
-            <span>{duration}</span>
-          </span>
-          <span className="flex items-center">
-            <HatIcon />
-            <span>{students}</span>
-          </span>
+          {/* Students */}
+          {students !== undefined && (
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+                </svg>
+              </span>
+              <span className="font-semibold text-gray-700">
+                {students} Students
+              </span>
+            </div>
+          )}
         </div>
 
-        <div className="flex justify-between items-end pt-3 border-t border-gray-100">
-          <div className="flex items-center text-sm font-semibold">
-            <div className="flex space-x-0.5">{renderStars(rating)}</div>
-            <span className="ml-2 text-gray-800">{rating.toFixed(1)}</span>
-            <span className="ml-1 text-gray-500 text-xs">({reviewCount})</span>
+        {/* Price and Rating Row (Card Actions area) */}
+        <div className="flex justify-between items-center pt-2">
+          {/* Rating */}
+          <div className="flex items-center gap-2">
+            <div className="flex">{renderStars(rating)}</div>
+            <span className="text-sm font-semibold text-gray-800">
+              {rating && rating.toFixed(1)} ({ratingCount || 0})
+            </span>
           </div>
 
           {/* Price */}
-          <div className="flex flex-col items-end">
-            {originalPrice > price && (
-              <span className="text-xs text-gray-400 line-through mb-[-0.25rem]">
-                ${originalPrice.toFixed(2)}
+          <div className="flex items-baseline gap-1">
+            <span className="text-xl font-bold text-gray-800">
+              ${price || "N/A"}
+            </span>
+            {originalPrice && (
+              <span className="text-sm text-gray-400 line-through">
+                ${originalPrice}
               </span>
             )}
-            {/* Current Price */}
-            <span className="text-2xl font-bold text-red-600">${price}</span>
           </div>
         </div>
-      </div>
 
-      {/* View Button (using Link) */}
-      <div className="p-5 pt-0">
-        <Link
-          to={`/model-details`}
-          className="flex justify-center items-center w-full py-2 px-4 rounded-lg text-white font-semibold 
-                               bg-orange-600 hover:bg-orange-700 transition-colors duration-300 shadow-md 
-                               shadow-blue-500/50"
-        >
-          View Course
-        </Link>
+        {/* Removed the 'View' button link to match the clean design of the example card */}
+        {/* If you want to keep the link, wrap the entire card or just the image/title */}
       </div>
     </div>
   );
