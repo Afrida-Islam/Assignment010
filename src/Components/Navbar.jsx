@@ -55,7 +55,7 @@ const Navbar = () => {
     },
     {
       name: "Add Course",
-      path: "/dashboard/add-course",
+      path: "/auth/login",
       icon: PlusCircle,
     },
     {
@@ -129,7 +129,6 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-4">
           {currentUser ? (
-            /* Logged In - Profile Dropdown */
             <div className="relative" ref={profileRef}>
               <div
                 className="flex items-center cursor-pointer"
@@ -170,7 +169,6 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            /* Not Logged In - Auth Buttons */
             <div className="hidden md:flex space-x-2">
               <Link to="/logindata">
                 <button className="px-4 py-2 text-orange-700 font-medium border border-orange-500 rounded-lg hover:bg-orange-50 transition-colors flex items-center">

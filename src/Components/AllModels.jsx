@@ -5,39 +5,31 @@ import { useState } from "react";
 const AllModels = () => {
   const initialData = useLoaderData();
 
-  // FIX: Initialize models state with the loaded data, or an empty array []
-  // if initialData is null or undefined, preventing the 'map' error on mount.
-  // This also ensures that 'models' is always iterable.
   const [models, setModels] = useState(
     Array.isArray(initialData) ? initialData : []
   );
   const [loading, setLoading] = useState(false);
 
-  // Function to handle search logic
   const handleSearch = (e) => {
     e.preventDefault();
     const search_text = e.target.search.value;
     console.log(`Searching for: ${search_text}`);
     setLoading(true);
-    setModels([]); // Clear models array immediately to show a clean loading state
-
-    // Fetch data from the backend using the search query
+    setModels([]);
     fetch(`http://localhost:3000/models?search=${search_text}`)
       .then((res) => {
-        // Check if the network response was successful
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         return res.json();
       })
       .then((data) => {
-        // Ensure that the received data is an array before setting state
         setModels(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Fetch error during search:", error);
-        // Display an error message to the user if needed, but safely set models to an empty array
+
         setModels([]);
         setLoading(false);
       });
@@ -54,7 +46,7 @@ const AllModels = () => {
         excellence.
       </p>
 
-      <form
+      {/* <form
         onSubmit={handleSearch}
         className="mt-5 mb-10 flex flex-col sm:flex-row gap-3 justify-center items-center"
       >
@@ -93,9 +85,9 @@ const AllModels = () => {
         >
           {loading ? "Searching...." : "Search"}
         </button>
-      </form>
+      </form> */}
 
-      {loading ? (
+      {/* {loading ? (
         <div className="text-center text-xl text-indigo-600 py-10">
           Loading courses...
         </div>
@@ -103,13 +95,13 @@ const AllModels = () => {
         <div className="text-center text-xl text-gray-500 py-10">
           No courses found. Try a different search term.
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {models.map((model) => (
-            <CourseCard key={model._id} model={model} />
-          ))}
-        </div>
-      )}
+      ) : ( */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {models.map((model) => (
+          <CourseCard key={model._id} model={model} />
+        ))}
+      </div>
+      {/* )} */}
     </div>
   );
 };

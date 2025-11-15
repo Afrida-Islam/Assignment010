@@ -6,19 +6,16 @@ export const CourseCard = ({ model }) => {
     title,
     image_link,
     category,
-    _id, // This is essential for the link destination!
+    _id,
     duration_weeks,
     students_enrolled,
     rating,
     price_usd,
   } = model;
 
-  // Function to determine the display duration
   const displayDuration = duration_weeks ? `${duration_weeks} weeks` : "N/A";
 
-  // Function to render stars (omitted for brevity, assume it's the same)
   const renderStars = (score) => {
-    // ... same renderStars function as before
     const fullStars = Math.floor(score);
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -46,7 +43,6 @@ export const CourseCard = ({ model }) => {
 
   return (
     <div className="card bg-white rounded-lg shadow-xl overflow-hidden max-w-sm">
-      {/* Image/Thumbnail Section */}
       <figure className="h-48 overflow-hidden">
         <img
           src={image_link}
@@ -55,21 +51,16 @@ export const CourseCard = ({ model }) => {
         />
       </figure>
 
-      {/* Card Body */}
       <div className="card-body p-4 flex flex-col">
-        {" "}
-        {/* Added flex-col to manage spacing */}
-        {/* Category (Data Science) */}
         <p className="text-sm text-gray-500 font-medium mb-1">
           {category || "Category"}
         </p>
-        {/* Title (Machine Learning with Python) */}
+
         <h2 className="text-xl font-bold text-gray-800 leading-tight mb-3">
           {title}
         </h2>
-        {/* Duration and Students Row */}
+
         <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-          {/* Duration */}
           {duration_weeks && (
             <div className="flex items-center gap-1">
               <span className="text-orange-500">
@@ -92,7 +83,6 @@ export const CourseCard = ({ model }) => {
             </div>
           )}
 
-          {/* Students */}
           {students_enrolled !== undefined && (
             <div className="flex items-center gap-1">
               <span className="text-orange-500">
@@ -111,11 +101,8 @@ export const CourseCard = ({ model }) => {
             </div>
           )}
         </div>
-        {/* Price and Rating Row (Bottom) */}
+
         <div className="flex justify-between items-center pb-3">
-          {" "}
-          {/* Moved border to the button section below */}
-          {/* Rating */}
           <div className="flex items-center gap-2">
             <div className="flex">{renderStars(rating)}</div>
             <span className="text-sm font-semibold text-gray-800">
@@ -131,7 +118,7 @@ export const CourseCard = ({ model }) => {
         <div className="border-t border-gray-200 pt-3 mt-1">
           {_id && (
             <Link
-              to={`/coursesdatails${_id}`}
+              to={`/coursesdatails/${_id}`}
               className="w-full inline-block text-center py-2 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150"
             >
               View Details

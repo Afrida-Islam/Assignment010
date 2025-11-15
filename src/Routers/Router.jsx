@@ -8,6 +8,8 @@ import AllModels from "../Components/AllModels";
 import CourseDetails from "../Pages/CourseDetails";
 import MainLayout from "./layout/MainLayout";
 import AddCourse from "../Pages/AddCourse";
+import PrivateRoute from "../Routers/PrivateRoute";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -35,14 +37,23 @@ export const router = createBrowserRouter([
         loader: () => fetch("http://localhost:3000/models"),
       },
       {
-        path: "/coursesdatails",
-        Component: CourseDetails,
-        // loader: () => fetch("http://localhost:3000/data"),
+        path: "/coursesdatails/:id",
+        element: <CourseDetails />,
       },
       {
-        path: "/dashboard/add-course",
-        element: AddCourse,
+        path: "/auth/login",
+        element: (
+          <PrivateRoute>
+            <AddCourse />
+          </PrivateRoute>
+        ),
+        // loader:( ) => fetch("http://localhost:3000/models"),
       },
+      // {
+      //   path: "/auth/login",
+      //   element: <LoginPage />,
+      //   errorElement: <ErrorPage />,
+      // },
     ],
   },
 ]);
