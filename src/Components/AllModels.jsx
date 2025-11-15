@@ -38,7 +38,6 @@ const AllModels = () => {
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
       <div className="text-4xl text-center font-extrabold text-gray-900">
-        {" "}
         Premium Courses
       </div>
       <p className="text-center text-gray-600 mt-2 mb-8">
@@ -46,7 +45,7 @@ const AllModels = () => {
         excellence.
       </p>
 
-      {/* <form
+      <form
         onSubmit={handleSearch}
         className="mt-5 mb-10 flex flex-col sm:flex-row gap-3 justify-center items-center"
       >
@@ -85,7 +84,7 @@ const AllModels = () => {
         >
           {loading ? "Searching...." : "Search"}
         </button>
-      </form> */}
+      </form>
 
       {/* {loading ? (
         <div className="text-center text-xl text-indigo-600 py-10">

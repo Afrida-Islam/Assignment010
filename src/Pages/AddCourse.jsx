@@ -1,10 +1,10 @@
 import { use } from "react";
-import { AuthContext } from "../context/AuthContext.jsx";
+import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 const AddCourse = () => {
   const { user } = use(AuthContext);
-  //   const AuthContext = createContext(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,8 +38,9 @@ const AddCourse = () => {
   return (
     <div className="card border border-gray-200 bg-base-100 w-full max-w-md mx-auto shadow-2xl rounded-2xl">
       <div className="card-body p-6 relative">
-        <h2 className="text-2xl font-bold text-center mb-6">Add New Model</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Add New Course</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name Field */}
           <div>
             <label className="label font-medium">Name</label>
             <input
@@ -62,13 +63,13 @@ const AddCourse = () => {
               <option value="" disabled>
                 Select category
               </option>
-              <option value="Vehicles">Vehicles</option>
-              <option value="Plants">Plants</option>
-              <option value="Foods">Foods</option>
-              <option value="Home & Living">Home & Living</option>
-              <option value="Characters">Characters</option>
-              <option value="Space">Space</option>
-              <option value="Animals">Animals</option>
+              <option value="Vehicles">Data Science</option>
+              <option value="Plants">Web Development</option>
+              <option value="Foods">Graphic Design</option>
+              <option value="Home & Living">Business & Finance</option>
+              <option value="Characters">Creative Arts</option>
+              <option value="Space">Marketing</option>
+              <option value="Animals">Music Production</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -85,7 +86,7 @@ const AddCourse = () => {
           </div>
 
           <div>
-            <label className="label font-medium">Thumbnail URL</label>
+            <label className="label font-medium">Image URL</label>
             <input
               type="url"
               name="thumbnail"
@@ -97,9 +98,9 @@ const AddCourse = () => {
 
           <button
             type="submit"
-            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700"
+            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700"
           >
-            Add Model
+            Add Course
           </button>
         </form>
       </div>

@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-// --- Custom Confirmation Modal Component ---
 const ConfirmationModal = ({ isOpen, onConfirm, onCancel, title, text }) => {
   if (!isOpen) return null;
 
@@ -29,7 +28,7 @@ const ConfirmationModal = ({ isOpen, onConfirm, onCancel, title, text }) => {
   );
 };
 
-const CouseDetails = () => {
+const CourseDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [model, setModel] = useState({});
@@ -47,6 +46,8 @@ const CouseDetails = () => {
 
     alert(message);
   };
+
+  // Destructure properties from the model state for cleaner use in JSX
   const {
     _id,
     course_id,
@@ -62,6 +63,21 @@ const CouseDetails = () => {
     image_link,
     description,
   } = model;
+
+  // --- Enrollment Handler (Kept) ---
+  const handleEnrollment = () => {
+    setLoading(true);
+    console.log(
+      `Attempting to enroll user ${user.email} in course ${title}...`
+    );
+
+    setTimeout(() => {
+      setLoading(false);
+      showToast(`🥳 Successfully enrolled in "${title}"!`, "success");
+    }, 1000);
+  };
+  // ----------------------------------------
+
   const fetchModelDetails = useCallback(() => {
     fetch(`http://localhost:3000/models/${id}`, {
       headers: {
@@ -85,10 +101,10 @@ const CouseDetails = () => {
   }, [id, user.accessToken]);
 
   useEffect(() => {
-    // useEffect only runs once on component mount (since refetch is removed)
     fetchModelDetails();
   }, [fetchModelDetails]);
 
+  // handleDlete and confirmDelete are kept but the buttons are removed from JSX
   const handleDlete = () => {
     setIsModalOpen(true);
   };
@@ -118,8 +134,7 @@ const CouseDetails = () => {
       });
   };
 
-  // The handleDownload function has been completely removed as requested.
-
+  // --- Loading States ---
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -140,6 +155,7 @@ const CouseDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 lg:p-10">
+      {/* Modal is still rendered but only appears if isModalOpen is true */}
       <ConfirmationModal
         isOpen={isModalOpen}
         onConfirm={confirmDelete}
@@ -160,7 +176,7 @@ const CouseDetails = () => {
             />
           </div>
 
-          <div className="flex flex-col justify-start space-y-4 w-full md:w-7/12">
+          <div className="flex flex-col justify-start space-y-4 w-full md:w-7/12 m-6">
             <div className="flex flex-wrap gap-2">
               <span className="px-3 py-1 text-sm font-semibold text-white bg-indigo-600 rounded-full">
                 {category || "N/A"}
@@ -190,24 +206,16 @@ const CouseDetails = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-100">
-              <Link
-                to={`/update-model/${_id}`}
-                className="py-3 px-8 rounded-full font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition duration-150 shadow-lg text-lg"
-              >
-                Update Course
-              </Link>
-
               <button
-                onClick={handleDlete}
-                className="py-3 px-8 rounded-full font-bold text-red-600 border-2 border-red-600 hover:bg-red-50 transition duration-150 text-lg"
+                onClick={handleEnrollment}
+                className="py-3 px-8 rounded-full font-bold text-white bg-orange-600 hover:bg-orange-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
               >
-                Delete Course
+                Enroll Now (${price_usd})
               </button>
             </div>
           </div>
         </div>
 
-        {/* --- Key Metrics and Description Section --- */}
         <div className="p-6 md:p-10 bg-gray-50 border-t border-gray-100">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8">
             <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
@@ -220,13 +228,13 @@ const CouseDetails = () => {
             </div>
             <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
               <p className="text-2xl font-bold text-blue-600">
-                {students_enrolled.toLocaleString()}
+                {students_enrolled ? students_enrolled.toLocaleString() : "N/A"}
               </p>
               <p className="text-sm text-gray-500 mt-1">Students Enrolled</p>
             </div>
             <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
               <p className="text-2xl font-bold text-pink-600">
-                {duration_weeks} Weeks
+                {duration_weeks ? `${duration_weeks} Weeks` : "N/A"}
               </p>
               <p className="text-sm text-gray-500 mt-1">Course Duration</p>
             </div>
@@ -237,18 +245,13 @@ const CouseDetails = () => {
               Course Description
             </h2>
             <p className="text-gray-700 leading-loose text-base">
-              {description}
+              {description || "No description provided."}
             </p>
           </div>
-
-          {/* <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-500">{course_id}</p>
-            <p className="text-sm text-gray-500">{_id}</p>
-          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default CouseDetails;
+export default CourseDetails;

@@ -42,18 +42,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/auth/login",
-        element: (
-          <PrivateRoute>
-            <AddCourse />
-          </PrivateRoute>
-        ),
-        // loader:( ) => fetch("http://localhost:3000/models"),
+        element: <AddCourse />,
       },
-      // {
-      //   path: "/auth/login",
-      //   element: <LoginPage />,
-      //   errorElement: <ErrorPage />,
-      // },
     ],
   },
 ]);
