@@ -50,7 +50,7 @@ const Navbar = () => {
   const dashboardLinks = [
     {
       name: "My Enrolled Courses",
-      path: "/dashboard/enrolled-courses",
+      path: "/enrolled-courses",
       icon: BookMarked,
     },
     {

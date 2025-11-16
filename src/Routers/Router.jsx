@@ -9,7 +9,7 @@ import CourseDetails from "../Pages/CourseDetails";
 import MainLayout from "./layout/MainLayout";
 import AddCourse from "../Pages/AddCourse";
 import PrivateRoute from "../Routers/PrivateRoute";
-
+// import EnrolledCourse from "../Components/EnrolledCourse";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
         path: "/auth/login",
         element: <AddCourse />,
       },
+      // {
+      //   path: "/enrolled-courses",
+      //   element: <EnrolledCourse />,
+      // },
     ],
   },
 ]);
