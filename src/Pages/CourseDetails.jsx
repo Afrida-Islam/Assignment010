@@ -177,6 +177,12 @@ const CourselDetails = () => {
             >
               Enroll Now (${price_usd})
             </button>
+            <button
+              // onClick={handleEnrollment}
+              className="py-3 px-8 rounded-full font-bold text-white bg-orange-600 hover:bg-orange-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
+            >
+              Update Course
+            </button>
           </div>
         </div>
       </div>
