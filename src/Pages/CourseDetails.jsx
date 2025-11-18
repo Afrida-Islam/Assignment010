@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
-const CourselDetails = () => {
+const CourseDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [model, setModel] = useState({});
@@ -45,84 +45,65 @@ const CourselDetails = () => {
     description,
   } = model;
 
-  // const handleDlete = () => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       fetch(`http://localhost:3000/models/${model._id}`, {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       })
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           console.log(data);
-  //           navigate("/all-models");
+  const handleEnrollment = () => {
+    if (!user) {
+      toast.error("You need to login to enroll in a course.");
+      navigate("/logindata");
+      return;
+    }
+    console.log(user)
 
-  //           Swal.fire({
-  //             title: "Deleted!",
-  //             text: "Your file has been deleted.",
-  //             icon: "success",
-  //           });
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //     }
-  //   });
-  // };
+    const enrollmentData = {
+      courseId: _id,
+      userEmail: user.email,
+      courseTitle: title,
+      instructor,
+      price_usd,
+      image_link,
+    };
 
-  // const handleDownload = () => {
-  //   const finalModel = {
-  //     name: model.name,
-  //     downloads: model.downloads,
-  //     created_by: model.created_by,
-  //     description: model.description,
-  //     thumbnail: model.thumbnail,
-  //     created_at: new Date(),
-  //     downloaded_by: user.email,
-  //   };
+    fetch(`http://localhost:3000/enroll`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(enrollmentData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          Swal.fire({
+            title: "Enrolled!",
+            text: "You have successfully enrolled in this course.",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(() => {
+            navigate("/enrolled-courses");
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: data.message || "Failed to enroll in the course.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("Enrollment error:", err);
+        Swal.fire({
+          title: "Error!",
+          text: "An error occurred during enrollment.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      });
+  };
 
-  //   fetch(`https://3d-model-server.vercel.app/downloads/${model._id}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(finalModel),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       toast.success("Successfully downloaded!");
-  //       setRefecth(!refetch);
-
-  //       // alternative solution of realtime download count update
-
-  //       //     fetch(`https://3d-model-server.vercel.app/models/${id}`, {
-  //       //   headers: {
-  //       //     authorization: `Bearer ${user.accessToken}`,
-  //       //   },
-  //       // })
-  //       //   .then((res) => res.json())
-  //       //   .then((data) => {
-  //       //     setModel(data.result);
-  //       //     console.log(" Api called!")
-  //       //     console.log(data);
-  //       //     setLoading(false);
-  //       //   });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const handleUpdate = () => {
+    navigate(`/update-course/${_id}`);
+  };
 
   if (loading) {
     return <div> Loading...</div>;
@@ -172,14 +153,14 @@ const CourselDetails = () => {
 
           <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-100">
             <button
-              // onClick={handleEnrollment}
+              onClick={handleEnrollment}
               className="py-3 px-8 rounded-full font-bold text-white bg-orange-600 hover:bg-orange-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
             >
               Enroll Now (${price_usd})
             </button>
             <button
-              // onClick={handleEnrollment}
-              className="py-3 px-8 rounded-full font-bold text-white bg-orange-600 hover:bg-orange-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
+              onClick={handleUpdate}
+              className="py-3 px-8 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
             >
               Update Course
             </button>
@@ -224,4 +205,4 @@ const CourselDetails = () => {
   );
 };
 
-export default CourselDetails;
+export default CourseDetails;

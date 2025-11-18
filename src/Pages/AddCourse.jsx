@@ -20,7 +20,7 @@ const AddCourse = () => {
       isFeatured: e.target.isFeatured.checked,
       created_at: new Date(),
       downloads: 0,
-      created_by: user ? user.email : "unknown",
+      created_by: user ? user.email : "Afrida Islam",
     };
 
     fetch("http://localhost:3000/models", {

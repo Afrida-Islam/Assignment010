@@ -65,7 +65,7 @@ const Login = () => {
           className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-gray-100"
         >
           <h2 className="text-2xl font-bold text-center text-orange-500 mb-6">
-            Login to GreenNest
+            Login to SkillSet
           </h2>
 
           {error && (
