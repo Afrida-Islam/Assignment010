@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 const UpdateCourse = () => {
   const data = useLoaderData();
   const model = data?.result;
-// const { _id } = model || {};
+
+  console.log("my this course: " + model);
+  const { _id } = model || {};
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -14,15 +16,10 @@ const UpdateCourse = () => {
       category: e.target.category.value,
       description: e.target.description.value,
       image_link: e.target.image_link.value,
-      price_usd: parseFloat(e.target.price_usd.value),
-      duration_weeks: parseInt(e.target.duration_weeks.value, 10),
-      isFeatured: e.target.isFeatured.checked,
-   
-  
-     
     };
 
-   fetch(`http://localhost:3000/models/${_id}`, { // <-- ERROR: _id is not defined here
+    fetch(`http://localhost:3000/models/${_id}`, {
+      // <-- ERROR: _id is not defined here
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +38,7 @@ const UpdateCourse = () => {
         toast.success("Successfully added the new course!");
         console.log("API Success:", data);
 
-        navigate("/");
+        // navigate("/");
       })
       .catch((err) => {
         console.error("API Error:", err);
@@ -60,24 +57,22 @@ const UpdateCourse = () => {
   // }
 
   return (
-     <div className="card bg-base-100 w-full max-w-md mx-auto shadow-2xl rounded-2xl">
+    <div className="card bg-base-100 w-full max-w-md mx-auto shadow-2xl rounded-2xl">
       <div className="card-body p-6 relative">
         <h2 className="text-2xl font-bold text-center mb-6">Update course</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Field */}
           <div>
-            <label className="label font-medium">Name</label>
+            <label className="label font-medium">Title</label>
             <input
               type="text"
               defaultValue={model?.title}
-              name="name"
+              name="title"
               required
               className="input w-full rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Enter name"
+              placeholder="Enter title"
             />
           </div>
 
-         
           <div>
             <label className="label font-medium">Category</label>
             <select
@@ -118,7 +113,7 @@ const UpdateCourse = () => {
             <label className="label font-medium">Thumbnail URL</label>
             <input
               type="url"
-              name="thumbnail"
+              name="image_link"
               defaultValue={model?.image_link}
               required
               className="input w-full rounded-full focus:border-0 focus:outline-gray-200"
@@ -126,11 +121,9 @@ const UpdateCourse = () => {
             />
           </div>
 
-       
           <button
-       
             type="submit"
-            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700"
+            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700"
           >
             Update Course
           </button>

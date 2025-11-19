@@ -31,7 +31,7 @@ const CourseDetails = () => {
 
   const {
     _id,
-    course_id,
+
     category,
     title,
     level,
@@ -46,14 +46,13 @@ const CourseDetails = () => {
   } = model;
 
   const handleEnrollment = () => {
-    console.log('Check user: ' + JSON.stringify(currentUser));
+    console.log("Check user: " + JSON.stringify(currentUser));
 
     if (!currentUser) {
       toast.error("You need to login to enroll in a course.");
       navigate("/logindata");
       return;
     }
-    
 
     const enrollmentData = {
       courseId: _id,

@@ -57,7 +57,11 @@ export const router = createBrowserRouter([
       {
         path: "/update-course/:id",
         element: <UpdateCourse />,
-        loader: ({ params }) => fetch("http://localhost:3000/models"),
+        // FIX: The 'id' must be destructured from the 'params' object.
+        loader: ({ params }) => {
+          const { id } = params; // <-- This line destructures the ID from the URL
+          return fetch(`http://localhost:3000/models/${id}`);
+        },
       },
     ],
   },

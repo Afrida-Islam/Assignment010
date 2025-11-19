@@ -31,14 +31,6 @@ const TestimonialCard = () => {
               }}
             />
           </div>
-
-          {/* Optional: Add User Name and Title if available */}
-          {/* <p className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
-            John Doe
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Cloud Learner
-          </p> */}
         </div>
       </div>
     </section>

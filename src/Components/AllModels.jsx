@@ -12,11 +12,11 @@ const AllModels = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const search_text = e.target.search.value;
-    console.log(`Searching for: ${search_text}`);
+    const category = e.target.search.value;
+    console.log(`Searching for: ${category}`);
     setLoading(true);
     setModels([]);
-   fetch(`http://localhost:5000/models?search=${search_text}`)
+    fetch(`http://localhost:3000/search?search=${category}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

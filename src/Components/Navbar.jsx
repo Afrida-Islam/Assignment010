@@ -7,11 +7,11 @@ import {
   User,
   Menu,
   X,
-  BookOpen, // For Courses
-  LayoutDashboard, // For Dashboard (icon)
-  PlusCircle, // For Add Course
-  BookMarked, // For My Enrolled Course
-  LibraryBig, // For My Added Course
+  BookOpen,
+  LayoutDashboard,
+  PlusCircle,
+  BookMarked,
+  LibraryBig,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { DiAtom } from "react-icons/di";
@@ -19,7 +19,7 @@ import { DiAtom } from "react-icons/di";
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
 
@@ -36,7 +36,14 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
   const handleLogout = async () => {
     try {
       await logout();
@@ -157,6 +164,15 @@ const Navbar = () => {
                     <User className="w-4 h-4 mr-2" />
                     Profile
                   </Link>
+                  <li>
+                    <p className=" pr-4">theme</p>
+                    <input
+                      onChange={(e) => handleTheme(e.target.checked)}
+                      type="checkbox"
+                      defaultChecked={localStorage.getItem("theme") === "dark"}
+                      className="toggle"
+                    />
+                  </li>
 
                   <a
                     onClick={handleLogout}

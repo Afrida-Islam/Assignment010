@@ -1,16 +1,16 @@
-# React + Vite
+           My E-Learning App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Site URL :
+Client Side UGL.
 
-Currently, two official plugins are available:
+Key Features of SkillSphere Academy
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.Robust Authentication & Authorization: Supports Email/Password and Google Social Login with strong password validation and secure, distinct private dashboards for both users and instructors.
 
-## React Compiler
+2.Comprehensive Course Management (CRUD): Instructors have full control to Add, View,and Update courses, with all data securely stored in MongoDB.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3.Dynamic Course Discovery: Features an "All Courses" page with essential course details and advanced filtering by Category to help users quickly find what they are looking for.
 
-## Expanding the ESLint configuration
+4.Engaging User Experience: The Home page utilizes modern Framer Motion/AOS animations, coupled with a fully responsive design built using Tailwind CSS.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+5.Personalized Viewing: Includes a user-friendly Dark/Light Theme Toggle, allowing users to customize their visual experience.
