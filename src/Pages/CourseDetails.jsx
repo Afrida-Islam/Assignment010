@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 const CourseDetails = () => {
@@ -9,7 +9,7 @@ const CourseDetails = () => {
   const { id } = useParams();
   const [model, setModel] = useState({});
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
+  const { currentUser } = useAuth();
   const [refetch, setRefecth] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const CourseDetails = () => {
         console.error("Error fetching model:", err);
         setLoading(false);
       });
-  }, [user, id, refetch]);
+  }, [currentUser, id, refetch]);
 
   const {
     _id,
@@ -46,23 +46,25 @@ const CourseDetails = () => {
   } = model;
 
   const handleEnrollment = () => {
-    if (!user) {
+    console.log('Check user: ' + JSON.stringify(currentUser));
+
+    if (!currentUser) {
       toast.error("You need to login to enroll in a course.");
       navigate("/logindata");
       return;
     }
-    console.log(user)
+    
 
     const enrollmentData = {
       courseId: _id,
-      userEmail: user.email,
+      userEmail: currentUser.email,
       courseTitle: title,
       instructor,
       price_usd,
       image_link,
     };
 
-    fetch(`http://localhost:3000/enroll`, {
+    fetch(`http://localhost:3000/enrolls`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -16,7 +16,7 @@ const AllModels = () => {
     console.log(`Searching for: ${search_text}`);
     setLoading(true);
     setModels([]);
-    fetch(`http://localhost:3000/models?search=${search_text}`)
+   fetch(`http://localhost:5000/models?search=${search_text}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

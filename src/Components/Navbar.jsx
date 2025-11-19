@@ -60,7 +60,7 @@ const Navbar = () => {
     },
     {
       name: "My Added Courses",
-      path: "/dashboard/my-added-courses",
+      path: "/my-added-courses",
       icon: LibraryBig,
     },
   ];

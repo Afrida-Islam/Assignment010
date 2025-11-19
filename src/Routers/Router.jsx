@@ -10,8 +10,8 @@ import MainLayout from "./layout/MainLayout";
 import AddCourse from "../Pages/AddCourse";
 import PrivateRoute from "../Routers/PrivateRoute";
 import EnrolledCourse from "../Components/EnrolledCourse";
-import UpdateCourse from "../Components/UpdataCourse"; // Corrected typo here
-
+import UpdateCourse from "../Components/UpdataCourse";
+import AddedCourse from "../Components/AddedCourses";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -51,9 +51,13 @@ export const router = createBrowserRouter([
         element: <EnrolledCourse />,
       },
       {
+        path: "/my-added-courses",
+        element: <AddedCourse />,
+      },
+      {
         path: "/update-course/:id",
         element: <UpdateCourse />,
-        loader: ({params}) => fetch("http://localhost:3000/models"),
+        loader: ({ params }) => fetch("http://localhost:3000/models"),
       },
     ],
   },

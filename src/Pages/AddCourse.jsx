@@ -1,10 +1,10 @@
 import { use } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 const AddCourse = () => {
-  const { user } = use(AuthContext);
+  const { currentUser } = useAuth();
   const navigate = useNavigate(); // Initialize navigate hook
 
   const handleSubmit = (e) => {
@@ -20,7 +20,7 @@ const AddCourse = () => {
       isFeatured: e.target.isFeatured.checked,
       created_at: new Date(),
       downloads: 0,
-      created_by: user ? user.email : "Afrida Islam",
+      created_by: currentUser ? currentUser.email : "Afrida Islam",
     };
 
     fetch("http://localhost:3000/models", {

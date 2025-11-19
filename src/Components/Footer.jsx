@@ -12,8 +12,6 @@ import { DiAtom } from "react-icons/di";
 const Footer = () => {
   return (
     <div>
-      {" "}
-      (
       <footer className="bg-black text-gray-300 py-12">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Logo and About */}
