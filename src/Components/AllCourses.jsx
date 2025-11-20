@@ -16,7 +16,9 @@ const AllCourses = () => {
     console.log(`Searching for: ${category}`);
     setLoading(true);
     setModels([]);
-    fetch(`https://assignment010serverside.vercel.app/search?search=${category}`)
+    fetch(
+      `https://assignment010serverside.vercel.app/search?search=${category}`
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

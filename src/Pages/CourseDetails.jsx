@@ -15,7 +15,7 @@ const CourseDetails = () => {
   useEffect(() => {
     console.log("call api");
 
-    fetch(`http://localhost:3000/models/${id}`)
+    fetch(`https://assignment010serverside.vercel.app/models/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setModel(data.result);
@@ -63,7 +63,7 @@ const CourseDetails = () => {
       image_link,
     };
 
-    fetch(`http://localhost:3000/enrolls`, {
+    fetch(`https://assignment010serverside.vercel.app/enrolls`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

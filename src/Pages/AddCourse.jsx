@@ -23,7 +23,7 @@ const AddCourse = () => {
       created_by: currentUser ? currentUser.email : "Afrida Islam",
     };
 
-    fetch("http://localhost:3000/models", {
+    fetch("https://assignment010serverside.vercel.app/models", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

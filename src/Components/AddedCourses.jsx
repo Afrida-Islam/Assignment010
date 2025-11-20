@@ -20,7 +20,7 @@ const AddedCourses = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:3000/my-models?created_by=${currentUser.email}`
+          `https://assignment010serverside.vercel.app/my-models?created_by=${currentUser.email}`
         );
 
         if (!response.ok) {

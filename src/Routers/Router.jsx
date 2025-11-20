@@ -36,7 +36,8 @@ export const router = createBrowserRouter([
       {
         path: "/courses",
         Component: AllCourses,
-        loader: () => fetch("https://assignment010serverside.vercel.app/models"),
+        loader: () =>
+          fetch("https://assignment010serverside.vercel.app/models"),
       },
       {
         path: "/coursesdatails/:id",
@@ -57,10 +58,12 @@ export const router = createBrowserRouter([
       {
         path: "/update-course/:id",
         element: <UpdateCourse />,
-       
+
         loader: ({ params }) => {
           const { id } = params;
-          return fetch(`https://assignment010serverside.vercel.app/models/${id}`);
+          return fetch(
+            `https://assignment010serverside.vercel.app/models/${id}`
+          );
         },
       },
     ],

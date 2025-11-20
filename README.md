@@ -1,7 +1,7 @@
            My E-Learning App
 
-Live Site URL :
-Client Side UGL.
+Live Site URL : https://assignment010.vercel.app/
+
 
 Key Features of SkillSphere Academy
 

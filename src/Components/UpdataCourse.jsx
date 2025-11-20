@@ -18,7 +18,7 @@ const UpdateCourse = () => {
       image_link: e.target.image_link.value,
     };
 
-    fetch(`http://localhost:3000/models/${_id}`, {
+    fetch(`https://assignment010serverside.vercel.app/models/${_id}`, {
       // <-- ERROR: _id is not defined here
       method: "PUT",
       headers: {
