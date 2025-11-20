@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router";
-import { CourseCard } from "../Components/CourseCard";
+import { CourseCard } from "./CourseCard";
 import { useState } from "react";
 
-const AllModels = () => {
+const AllCourses = () => {
   const initialData = useLoaderData();
 
   const [models, setModels] = useState(
@@ -105,4 +105,4 @@ const AllModels = () => {
   );
 };
 
-export default AllModels;
+export default AllCourses;

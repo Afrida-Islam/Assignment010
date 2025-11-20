@@ -9,7 +9,7 @@ import FeaturePart from "../Components/FeaturePart";
 // import CourseCategories from "../Components/CourseCategories";
 import FAQSection from "../Components/FAQSection";
 import TestimonialCard from "../Components/TestimonialCard";
-import AllModels from "../Components/AllModels";
+import AllCourses from "../Components/AllCourses";
 
 const Home = () => {
   return (
@@ -17,7 +17,7 @@ const Home = () => {
       {/* <Navbar /> */}
 
       <Banner></Banner>
-      <AllModels></AllModels>
+      <AllCourses></AllCourses>
 
       <Stepltem></Stepltem>
 

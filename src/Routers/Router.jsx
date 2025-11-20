@@ -4,7 +4,7 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Register from "../Pages/Register";
 import LogIn from "../Pages/Login";
-import AllModels from "../Components/AllModels";
+import AllCourses from "../Components/AllCourses";
 import CourseDetails from "../Pages/CourseDetails";
 import MainLayout from "./layout/MainLayout";
 import AddCourse from "../Pages/AddCourse";
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/courses",
-        Component: AllModels,
+        Component: AllCourses,
         loader: () => fetch("http://localhost:3000/models"),
       },
       {
