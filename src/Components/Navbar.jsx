@@ -60,6 +60,7 @@ const Navbar = () => {
       path: "/enrolled-courses",
       icon: BookMarked,
     },
+
     {
       name: "Add Course",
       path: "/auth/login",
@@ -84,13 +85,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <h1
           className="text-3xl font-extrabold text-orange-500 flex items-center cursor-pointer"
-          onClick={() => navigate("/")} 
+          onClick={() => navigate("/")}
         >
           <DiAtom className="text-orange-500 mr-2 h-10 w-10" />
           SkillSet
         </h1>
 
-       
         <nav className="hidden md:flex space-x-8 text-lg font-medium text-gray-600">
           <Link
             to="/"
@@ -99,17 +99,17 @@ const Navbar = () => {
           >
             Home
           </Link>
+          <Link
+            to="/courses"
+            onClick={() => handleLinkClick()}
+            className="hover:text-orange-600 transition-colors cursor-pointer"
+          >
+            Courses
+          </Link>
 
-         
-          {!currentUser && (
-            <Link
-              to="/courses"
-              onClick={() => handleLinkClick()}
-              className="hover:text-orange-600 transition-colors cursor-pointer"
-            >
-              Courses
-            </Link>
-          )}
+          {/* {!currentUser && (
+           
+          )} */}
           {!currentUser && (
             <Link
               to=""
