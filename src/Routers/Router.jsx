@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
       {
         path: "/courses",
         Component: AllCourses,
-        loader: () => fetch("http://localhost:3000/models"),
+        loader: () => fetch("https://assignment010serverside.vercel.app/models"),
       },
       {
         path: "/coursesdatails/:id",
@@ -57,10 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "/update-course/:id",
         element: <UpdateCourse />,
-        // FIX: The 'id' must be destructured from the 'params' object.
+       
         loader: ({ params }) => {
-          const { id } = params; // <-- This line destructures the ID from the URL
-          return fetch(`http://localhost:3000/models/${id}`);
+          const { id } = params;
+          return fetch(`https://assignment010serverside.vercel.app/models/${id}`);
         },
       },
     ],
