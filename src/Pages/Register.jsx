@@ -164,7 +164,7 @@ const Register = () => {
           </div>
 
           {/* Register Button */}
-          <Link to="/">
+          
             <button
               type="submit"
               disabled={!isPasswordValid}
@@ -176,7 +176,7 @@ const Register = () => {
             >
               Register
             </button>
-          </Link>
+          
 
           {/* Divider */}
           <div className="my-4 text-center text-gray-500 text-sm">OR</div>
