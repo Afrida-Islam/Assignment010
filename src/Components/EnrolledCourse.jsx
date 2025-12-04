@@ -57,14 +57,9 @@ function EnrolledCourseListItem({ course, handleUnenroll }) {
 
       {/* Action Buttons Section - Stacks on mobile, inline on desktop */}
       <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto md:min-w-[280px]">
-        <Link
-          to={`/course/start/${courseId}`}
-          className="w-full sm:w-1/2 md:w-auto"
-        >
-          <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md transition-all duration-200 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
-            Start Learning
-          </button>
-        </Link>
+        <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md transition-all duration-200 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+          Start Learning
+        </button>
 
         <button
           onClick={() => handleUnenroll(_id)}
@@ -152,13 +147,13 @@ export default function EnrolledCourse() {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://assignment010serverside.vercel.app/enrolls/${enrollmentId}`,
-          {
-            method: "DELETE",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+          `https://assignment010serverside.vercel.app/enrolls/${enrollmentId}`
+          // {
+          //   method: "DELETE",
+          //   headers: {
+          //     authorization: `Bearer ${localStorage.getItem("token")}`,
+          //   },
+          // }
         )
           .then((res) => res.json())
           .then((data) => {
