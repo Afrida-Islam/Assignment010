@@ -100,15 +100,6 @@ const StatsSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Decorative Map Element - Greyish Orange Tint */}
-        <div className="mt-20 opacity-20 dark:opacity-10 flex justify-center">
-          <img
-            src="https://i.ibb.co/VqnY8p0/world-map-network.png"
-            alt="Global Network"
-            className="max-w-4xl w-full filter grayscale hover:grayscale-0 transition-all duration-700 dark:invert"
-          />
-        </div>
       </div>
     </section>
   );

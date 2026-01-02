@@ -13,6 +13,8 @@ import EnrolledCourse from "../Components/EnrolledCourse";
 import UpdateCourse from "../Components/UpdataCourse";
 import AddedCourse from "../Components/AddedCourses";
 import Contact from "../Components/Contact";
+import BlogPage from "../Components/blogPosts";
+import PrivacyPage from "../Components/PrivacyPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -21,21 +23,31 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+        loader: () =>
+          fetch("https://assignment010serverside.vercel.app/courses"),
       },
       {
         path: "/contact",
         Component: Contact,
       },
       {
+        path: "/blog",
+        Component: BlogPage,
+      },
+      {
+        path: "/privacy",
+        Component: PrivacyPage,
+      },
+      {
         path: "/profiledata",
         Component: Profile,
       },
       {
-        path: "/Registerdata",
+        path: "/Register",
         Component: Register,
       },
       {
-        path: "/logindata",
+        path: "/login",
         Component: LogIn,
       },
       {

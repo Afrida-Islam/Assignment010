@@ -93,7 +93,6 @@ const AllCourses = () => {
           <CourseCard key={model._id} model={model} />
         ))}
       </div>
-      {/* )} */}
     </div>
   );
 };
