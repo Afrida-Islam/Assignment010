@@ -8,6 +8,8 @@ import FeaturePart from "../Components/FeaturePart";
 import FAQSection from "../Components/FAQSection";
 import TestimonialCard from "../Components/TestimonialCard";
 import AllCourses from "../Components/AllCourses";
+import StatsSection from "../Components/StatsSection";
+import CTASection from "../Components/CTASection";
 
 const Home = () => {
   return (
@@ -21,6 +23,8 @@ const Home = () => {
 
       <FeaturePart></FeaturePart>
       <FAQSection></FAQSection>
+      <StatsSection> </StatsSection>
+      <CTASection></CTASection>
       <TestimonialCard></TestimonialCard>
       {/* <Outlet></Outlet>
       <Footer></Footer> */}

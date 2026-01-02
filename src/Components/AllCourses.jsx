@@ -39,10 +39,10 @@ const AllCourses = () => {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
-      <div className="text-4xl text-center font-extrabold text-gray-900">
+      <div className="text-4xl text-center font-extrabold text-gray-900 dark:text-white">
         Premium Courses
       </div>
-      <p className="text-center text-gray-600 mt-2 mb-8">
+      <p className="text-center text-gray-600 dark:text-gray-300 mt-2 mb-8">
         Browse our catalog of 9,845 Premium Courses, hand-selected for
         excellence.
       </p>
@@ -56,7 +56,7 @@ const AllCourses = () => {
             name="search"
             type="search"
             placeholder="Search by topic or title..."
-            className="w-full input input-bordered rounded-full pl-10 pr-4 py-2 text-gray-700 shadow-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+            className="w-full input input-bordered rounded-full pl-10 pr-4 py-2 text-gray-700 shadow-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition dark:text-white"
           />
           <svg
             className="h-5 w-5 absolute left-3 opacity-50 text-gray-500"
@@ -88,7 +88,6 @@ const AllCourses = () => {
         </button>
       </form>
 
-      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {models.map((model) => (
           <CourseCard key={model._id} model={model} />
