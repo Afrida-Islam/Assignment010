@@ -109,11 +109,11 @@ const Navbar = () => {
 
           {!currentUser && (
             <Link
-              to=""
+              to="/contact"
               onClick={() => handleLinkClick()}
               className="hover:text-orange-600 transition-colors cursor-pointer"
             >
-              Dashboard
+              Contact
             </Link>
           )}
 

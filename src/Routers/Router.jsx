@@ -12,6 +12,7 @@ import PrivateRoute from "../Routers/PrivateRoute";
 import EnrolledCourse from "../Components/EnrolledCourse";
 import UpdateCourse from "../Components/UpdataCourse";
 import AddedCourse from "../Components/AddedCourses";
+import Contact from "../Components/Contact";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/profiledata",
