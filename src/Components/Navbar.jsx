@@ -107,9 +107,6 @@ const Navbar = () => {
             Courses
           </Link>
 
-          {/* {!currentUser && (
-           
-          )} */}
           {!currentUser && (
             <Link
               to=""
