@@ -49,26 +49,23 @@ const Navbar = () => {
     setTheme(checked ? "dark" : "light");
   };
 
-  // 2. Updated handleLogout with Toast Logic
   const handleLogout = async () => {
     try {
       await logout();
       setProfileOpen(false);
 
-      // Show success toast with orange accent
-      toast.success("Successfully logged out!", {
+      toast.success("See you again! Logged out successfully.", {
         icon: "👋",
         style: {
-          borderRadius: "10px",
-          background: "#333",
+          borderRadius: "12px",
+          background: "#059e4a",
           color: "#fff",
+          border: "1px solid #f97316",
         },
+        duration: 3000,
       });
-
-      navigate("/login");
     } catch (error) {
-      console.error("Logout failed:", error);
-      toast.error("Failed to log out. Please try again.");
+      console.error(error);
     }
   };
 
@@ -203,7 +200,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="hidden md:flex space-x-2">
-              <Link to="/logindata">
+              <Link to="/login">
                 <button className="px-4 py-2 text-orange-700 font-medium border border-orange-500 rounded-lg hover:bg-orange-50 transition-colors flex items-center">
                   <LogIn className="w-4 h-4 mr-2" /> Login
                 </button>

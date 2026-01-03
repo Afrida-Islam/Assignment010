@@ -1,7 +1,12 @@
 import React from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // হোম পেজে যাওয়ার জন্য
-import Swal from "sweetalert2"; // সাকসেস মেসেজের জন্য
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaPaperPlane,
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -9,16 +14,18 @@ const Contact = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
 
-    // এখানে আপনি চাইলে আপনার API কল করতে পারেন
-
-    // ১. সাকসেস মেসেজ দেখানো
     Swal.fire({
       title: "Success!",
       text: "Your message has been sent successfully.",
       icon: "success",
-      confirmButtonColor: "#2DD4BF", // Teal color matching your button
+      confirmButtonColor: "#f97316", // Orange-500
+      background: document.documentElement.classList.contains("dark")
+        ? "#1E293B"
+        : "#FFFFFF",
+      color: document.documentElement.classList.contains("dark")
+        ? "#F8FAFC"
+        : "#1E293B",
     }).then((result) => {
-      // ২. ওকে বাটনে ক্লিক করলে হোম পেজে নিয়ে যাবে
       if (result.isConfirmed) {
         navigate("/");
       }
@@ -26,123 +33,141 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
       {/* Header Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-900">Contact Us</h2>
-        <p className="text-gray-500 mt-2">
-          Home / <span className="text-teal-500">Contact Us</span>
+      <div className="max-w-4xl mx-auto text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
+          Let's Start a <span className="text-orange-500">Conversation</span>
+        </h2>
+        <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
+          Have a question or just want to say hi? We'd love to hear from you.
         </p>
       </div>
 
-      {/* Main Contact Card */}
-      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row overflow-hidden">
-        {/* Left Side: Get In Touch */}
-        <div className="md:w-1/3 bg-white p-8 md:border-r border-gray-100">
-          <h3 className="text-2xl font-bold text-gray-800 mb-8">
-            Get In Touch
-          </h3>
+      {/* Main Container */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left Side: Contact Information */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-8">
+              Contact Info
+            </h3>
 
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="bg-orange-50 p-3 rounded-full text-orange-500">
-                <FaPhoneAlt />
+            <div className="space-y-10">
+              {/* Phone */}
+              <div className="flex items-center gap-5 group">
+                <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-2xl text-orange-500 group-hover:scale-110 transition-transform">
+                  <FaPhoneAlt size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    Call Us
+                  </p>
+                  <p className="text-slate-800 dark:text-slate-200 font-bold">
+                    +1 (555) 000-8888
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Call Us At
-                </p>
-                <p className="text-gray-800 font-bold">00047858785</p>
-              </div>
-            </div>
 
-            <div className="flex items-start gap-4">
-              <div className="bg-orange-50 p-3 rounded-full text-orange-500">
-                <FaEnvelope />
+              {/* Email */}
+              <div className="flex items-center gap-5 group">
+                <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-2xl text-orange-500 group-hover:scale-110 transition-transform">
+                  <FaEnvelope size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    Email Us
+                  </p>
+                  <p className="text-slate-800 dark:text-slate-200 font-bold">
+                    support@studyflow.com
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Email US ON
-                </p>
-                <p className="text-gray-800 font-bold">demo123@gmail.com</p>
-              </div>
-            </div>
 
-            <div className="flex items-start gap-4">
-              <div className="bg-orange-50 p-3 rounded-full text-orange-500">
-                <FaMapMarkerAlt />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Find US
-                </p>
-                <p className="text-gray-800 font-bold">
-                  6391 Elgin St. Celina, DE
-                </p>
+              {/* Location */}
+              <div className="flex items-center gap-5 group">
+                <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-2xl text-orange-500 group-hover:scale-110 transition-transform">
+                  <FaMapMarkerAlt size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    Visit Us
+                  </p>
+                  <p className="text-slate-800 dark:text-slate-200 font-bold">
+                    123 Learning Ave, NY
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Form */}
-        <div className="md:w-2/3 p-8">
-          <form onSubmit={handleSendMessage} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
-                  Name
+        {/* Right Side: Contact Form */}
+        <div className="lg:col-span-2">
+          <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+            <form
+              onSubmit={handleSendMessage}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              <div className="md:col-span-1">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">
+                  Full Name
                 </label>
                 <input
                   type="text"
-                  placeholder="Name"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-teal-500 outline-none"
+                  placeholder="Your Name"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-orange-500 dark:text-white outline-none transition-all placeholder:text-slate-400"
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
-                  Email
+
+              <div className="md:col-span-1">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">
+                  Email Address
                 </label>
                 <input
                   type="email"
-                  placeholder="Email"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-teal-500 outline-none"
+                  placeholder="your@example.com"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-orange-500 dark:text-white outline-none transition-all placeholder:text-slate-400"
                   required
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                Subject
-              </label>
-              <input
-                type="text"
-                placeholder="Subject"
-                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-teal-500 outline-none"
-                required
-              />
-            </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  placeholder="How can we help?"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-orange-500 dark:text-white outline-none transition-all placeholder:text-slate-400"
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                Message
-              </label>
-              <textarea
-                rows="6"
-                placeholder="Type message"
-                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-teal-500 outline-none resize-none"
-                required
-              ></textarea>
-            </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">
+                  Message
+                </label>
+                <textarea
+                  rows="5"
+                  placeholder="Share your thoughts..."
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-orange-500 dark:text-white outline-none resize-none transition-all placeholder:text-slate-400"
+                  required
+                ></textarea>
+              </div>
 
-            <button
-              type="submit"
-              className="w-full bg-teal-400 hover:bg-teal-500 text-white font-bold py-4 rounded-md transition-all shadow-md active:scale-95"
-            >
-              Send Message
-            </button>
-          </form>
+              <div className="md:col-span-2 pt-2">
+                <button
+                  type="submit"
+                  className="group w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-5 rounded-2xl transition-all shadow-lg shadow-orange-500/25 flex items-center justify-center gap-3 active:scale-[0.98]"
+                >
+                  <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

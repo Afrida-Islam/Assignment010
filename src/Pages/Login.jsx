@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Eye,
   EyeOff,
@@ -10,7 +10,6 @@ import {
   ArrowLeft,
   Sparkles,
   Zap,
-  CheckCircle2,
   Globe,
   Trophy,
 } from "lucide-react";
@@ -18,9 +17,9 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  GithubAuthProvider,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +28,15 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const toastStyle = {
+    borderRadius: "15px",
+    background: "#059e4a",
+    color: "#fff",
+    border: "1px solid #f97316",
+    fontSize: "14px",
+    fontWeight: "bold",
+  };
 
   const validateForm = () => {
     if (!email.includes("@")) {
@@ -49,6 +57,11 @@ const Login = () => {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Welcome Back to SkillSet!", {
+        icon: "🔥",
+        style: toastStyle,
+      });
+
       navigate("/");
     } catch (err) {
       const message =
@@ -56,6 +69,7 @@ const Login = () => {
           ? "The email or password provided is incorrect."
           : "Authentication failed. Please try again.";
       setError(message);
+      toast.error(message, { style: toastStyle });
     } finally {
       setIsLoading(false);
     }
@@ -65,11 +79,14 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("Google sign-up successful:", result.user);
+        toast.success(`Hello, ${result.user.displayName.split(" ")[0]}!`, {
+          icon: "🚀",
+          style: toastStyle,
+        });
         navigate("/");
       })
       .catch((error) => {
-        console.error("Google sign-up failed:", error);
+        console.error("Google login failed:", error);
         setError(error.message);
       });
   };
@@ -78,13 +95,13 @@ const Login = () => {
     setEmail(role === "admin" ? "admin@skillset.com" : "user@skillset.com");
     setPassword(role === "admin" ? "admin123" : "user1234");
     setError("");
+    toast("Demo credentials filled!", { icon: "📝", style: toastStyle });
   };
 
   return (
     <div className="min-h-screen bg-white flex font-sans selection:bg-orange-100 selection:text-orange-900">
-      {/* LEFT SIDE: Brand & Social Proof (Hidden on mobile) */}
+      {/* LEFT SIDE: Brand & Social Proof */}
       <div className="hidden lg:flex lg:w-[42%] bg-slate-950 relative flex-col justify-between p-16 overflow-hidden">
-        {/* Abstract Background Elements */}
         <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-orange-600/20 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[100px]" />
 
@@ -107,12 +124,11 @@ const Login = () => {
             </h1>
             <p className="text-slate-400 text-xl max-w-md leading-relaxed font-light">
               Join the elite circle of professionals managing their career
-              trajectory with data-driven insights.
+              trajectory.
             </p>
           </div>
         </div>
 
-        {/* Bento Grid Highlights */}
         <div className="relative z-10 grid grid-cols-2 gap-4">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-[2rem] hover:bg-white/10 transition-colors">
             <div className="h-10 w-10 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4 text-orange-400">
@@ -173,7 +189,6 @@ const Login = () => {
             </p>
           </header>
 
-          {/* Demo Login Selector */}
           <div className="grid grid-cols-2 gap-4 p-1.5 bg-slate-50 border border-slate-100 rounded-3xl mb-10">
             <button
               onClick={() => fillDemo("user")}
@@ -190,7 +205,7 @@ const Login = () => {
           </div>
 
           {error && (
-            <div className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-900 rounded-r-2xl flex items-start gap-3 animate-in fade-in slide-in-from-left-4">
+            <div className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-900 rounded-r-2xl flex items-start gap-3">
               <ShieldAlert size={20} className="mt-0.5 text-red-600 shrink-0" />
               <div>
                 <p className="text-sm font-black">Login Error</p>
@@ -226,7 +241,12 @@ const Login = () => {
                   Password
                 </label>
                 <Link
-                  to="/resetpasswort"
+                  to="/reset-password"
+                  onClick={() =>
+                    toast.error("Reset functionality coming soon!", {
+                      style: toastStyle,
+                    })
+                  }
                   className="text-xs font-black text-orange-500 hover:text-orange-600 uppercase tracking-widest"
                 >
                   Forgot Password?
@@ -260,7 +280,7 @@ const Login = () => {
               className="w-full py-5 bg-slate-950 hover:bg-orange-600 text-white rounded-[1.5rem] font-black text-lg shadow-2xl shadow-slate-200 hover:shadow-orange-500/30 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
             >
               <span className="flex items-center justify-center gap-2">
-                {isLoading ? "Validating Account..." : "Login to Dashboard"}
+                {isLoading ? "Validating..." : "Login to Dashboard"}
                 {!isLoading && (
                   <Zap size={18} className="group-hover:fill-current" />
                 )}
@@ -285,9 +305,9 @@ const Login = () => {
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
-              className="w-5 h-5"
+              className="w-6 h-6"
             />
-            Sign up with Google
+            Sign in with Google
           </button>
         </div>
       </div>

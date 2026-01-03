@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
@@ -10,28 +10,22 @@ const CourseDetails = () => {
   const [model, setModel] = useState({});
   const [loading, setLoading] = useState(true);
   const { currentUser } = useAuth();
-  const [refetch, setRefecth] = useState(false);
 
   useEffect(() => {
-    console.log("call api");
-
     fetch(`https://assignment010serverside.vercel.app/models/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setModel(data.result);
-        console.log("Api called!");
-        console.log(data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching model:", err);
         setLoading(false);
       });
-  }, [currentUser, id, refetch]);
+  }, [id]);
 
   const {
     _id,
-
     category,
     title,
     level,
@@ -46,8 +40,6 @@ const CourseDetails = () => {
   } = model;
 
   const handleEnrollment = () => {
-    console.log("Check user: " + JSON.stringify(currentUser));
-
     if (!currentUser) {
       toast.error("You need to login to enroll in a course.");
       navigate("/logindata");
@@ -76,130 +68,131 @@ const CourseDetails = () => {
         if (data.success) {
           Swal.fire({
             title: "Enrolled!",
-            text: "You have successfully enrolled in this course.",
+            text: "Successfully enrolled in this course.",
             icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/enrolled-courses");
-          });
+          }).then(() => navigate("/enrolled-courses"));
         } else {
-          Swal.fire({
-            title: "Error!",
-            text: data.message || "Failed to enroll in the course.",
-            icon: "error",
-            confirmButtonText: "OK",
-          });
+          Swal.fire({ title: "Error!", text: data.message, icon: "error" });
         }
-      })
-      .catch((err) => {
-        console.error("Enrollment error:", err);
-        Swal.fire({
-          title: "Error!",
-          text: "An error occurred during enrollment.",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
       });
   };
 
-  const handleUpdate = () => {
-    navigate(`/update-course/${_id}`);
-  };
-
   if (loading) {
-    return <div> Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen dark:bg-slate-950 dark:text-white">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="card bg-white shadow-2xl border border-gray-100 rounded-2xl overflow-hidden">
-      {/* Main Content: Image and Primary Details */}
-      <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10">
-        {/* Image Section */}
-        <div className="shrink-0 w-full md:w-5/12">
-          <img
-            src={image_link}
-            alt={title || "Course image"}
-            className="w-full object-cover rounded-xl shadow-lg h-80 sm:h-96"
-          />
-        </div>
+    <div className="max-w-6xl mx-auto my-10 px-4">
+      {/* Main Card Wrapper */}
+      <div className="card bg-white dark:bg-slate-900 shadow-2xl border border-gray-100 dark:border-slate-800 rounded-3xl overflow-hidden transition-colors duration-300">
+        {/* Main Content: Image and Primary Details */}
+        <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10">
+          {/* Image Section */}
+          <div className="shrink-0 w-full md:w-5/12">
+            <img
+              src={image_link}
+              alt={title}
+              className="w-full object-cover rounded-2xl shadow-lg h-80 sm:h-96"
+            />
+          </div>
 
-        <div className="flex flex-col justify-start space-y-4 w-full md:w-7/12 m-6">
-          <div className="flex flex-wrap gap-2">
-            <span className="px-3 py-1 text-sm font-semibold text-white bg-indigo-600 rounded-full">
-              {category || "N/A"}
-            </span>
-            <span
-              className={`px-3 py-1 text-sm font-semibold rounded-full ${
-                level === "Advanced"
-                  ? "bg-red-100 text-red-600"
-                  : "bg-green-100 text-green-600"
-              }`}
-            >
-              {level || "N/A"}
-            </span>
-            {certificate_offered && (
-              <span className="px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full">
-                Certificate Included
+          <div className="flex flex-col justify-center space-y-4 w-full md:w-7/12">
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 text-xs font-bold text-white bg-indigo-600 dark:bg-indigo-500 rounded-full uppercase">
+                {category || "N/A"}
               </span>
-            )}
-          </div>
+              <span
+                className={`px-3 py-1 text-xs font-bold rounded-full uppercase ${
+                  level === "Advanced"
+                    ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                    : "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
+                }`}
+              >
+                {level || "N/A"}
+              </span>
+              {certificate_offered && (
+                <span className="px-3 py-1 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 rounded-full uppercase">
+                  Certificate Included
+                </span>
+              )}
+            </div>
 
-          <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-800 leading-tight">
-            {title}
-          </h1>
+            <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-800 dark:text-white leading-tight">
+              {title}
+            </h1>
 
-          <p className="text-gray-600 leading-relaxed text-lg pt-2">
-            <span className="font-semibold text-gray-700">{instructor}</span>
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-100">
-            <button
-              onClick={handleEnrollment}
-              className="py-3 px-8 rounded-full font-bold text-white bg-orange-600 hover:bg-orange-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
-            >
-              Enroll Now (${price_usd})
-            </button>
-            <button
-              onClick={handleUpdate}
-              className="py-3 px-8 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150 shadow-lg text-lg transform hover:scale-105 mb-5"
-            >
-              Update Course
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="p-6 md:p-10 bg-gray-50 border-t border-gray-100">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8">
-          <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
-            <p className="text-2xl font-bold text-green-600">${price_usd}</p>
-            <p className="text-sm text-gray-500 mt-1">Course Price</p>
-          </div>
-          <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
-            <p className="text-2xl font-bold text-yellow-600">⭐ {rating}</p>
-            <p className="text-sm text-gray-500 mt-1">Average Rating</p>
-          </div>
-          <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
-            <p className="text-2xl font-bold text-blue-600">
-              {students_enrolled ? students_enrolled.toLocaleString() : "N/A"}
+            <p className="text-gray-600 dark:text-slate-400 text-lg">
+              Instructor:{" "}
+              <span className="font-semibold text-gray-800 dark:text-slate-200">
+                {instructor}
+              </span>
             </p>
-            <p className="text-sm text-gray-500 mt-1">Students Enrolled</p>
-          </div>
-          <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100">
-            <p className="text-2xl font-bold text-pink-600">
-              {duration_weeks ? `${duration_weeks} Weeks` : "N/A"}
-            </p>
-            <p className="text-sm text-gray-500 mt-1">Course Duration</p>
+
+            <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-gray-100 dark:border-slate-800">
+              <button
+                onClick={handleEnrollment}
+                className="py-4 px-10 rounded-xl font-bold text-white bg-orange-600 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600 transition duration-150 shadow-lg text-lg transform hover:-translate-y-1"
+              >
+                Enroll Now (${price_usd})
+              </button>
+              <button
+                onClick={() => navigate(`/update-course/${_id}`)}
+                className="py-4 px-10 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-150 shadow-lg text-lg transform hover:-translate-y-1"
+              >
+                Update Course
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-3 border-b pb-2">
-            Course Description
-          </h2>
-          <p className="text-gray-700 leading-loose text-base">
-            {description || "No description provided."}
-          </p>
+        {/* Stats Section */}
+        <div className="p-6 md:p-10 bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-800">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-10">
+            <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+              <p className="text-2xl font-black text-green-600 dark:text-green-400">
+                ${price_usd}
+              </p>
+              <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase mt-1">
+                Price
+              </p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+              <p className="text-2xl font-black text-yellow-500">⭐ {rating}</p>
+              <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase mt-1">
+                Rating
+              </p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+              <p className="text-2xl font-black text-blue-600 dark:text-blue-400">
+                {students_enrolled ? students_enrolled.toLocaleString() : "0"}
+              </p>
+              <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase mt-1">
+                Students
+              </p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+              <p className="text-2xl font-black text-pink-600 dark:text-pink-400">
+                {duration_weeks ? `${duration_weeks}W` : "N/A"}
+              </p>
+              <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase mt-1">
+                Duration
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-8 bg-orange-500 rounded-full"></span>
+              Course Description
+            </h2>
+            <p className="text-gray-700 dark:text-slate-300 leading-relaxed text-lg bg-white dark:bg-slate-900/50 p-6 rounded-2xl border dark:border-slate-800">
+              {description || "No description provided for this course."}
+            </p>
+          </div>
         </div>
       </div>
     </div>
