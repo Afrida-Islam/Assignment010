@@ -42,7 +42,7 @@ const CourseDetails = () => {
   const handleEnrollment = () => {
     if (!currentUser) {
       toast.error("You need to login to enroll in a course.");
-      navigate("/logindata");
+      navigate("/login");
       return;
     }
 
